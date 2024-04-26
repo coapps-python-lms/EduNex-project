@@ -24,6 +24,7 @@ function TeacherCourses(){
                         <td><Link to="/">232</Link></td>
                         <td>
                             <button className="btn btn-danger btn-sm active">Delete</button>
+                           <Link to="/add-chapter/2" className="btn btn-success btn-sm active ms-4">Add Chapter</Link>
                         </td>
                     </tbody>
                 </table>

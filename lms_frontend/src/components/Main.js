@@ -16,10 +16,12 @@ import ProfileSettings from "./User/ProfileSettings";
 import ChangePassword from "./User/ChangePassword";
 //teacher routes
 import TeacherLogin from "./Teacher/TeacherLogin";
+import TeacherLogout from "./Teacher/TeacherLogout";
 import TeacherRegister from "./Teacher/TeacherRegister";
 import TeacherDashboard from "./Teacher/TeacherDashboard";
 import TeacherCourses from "./Teacher/TeacherCourses";
 import AddCourses from "./Teacher/AddCourses";
+import AddChapter from "./Teacher/AddChapter";
 import TeacherProfileSettings from "./Teacher/TeacherProfileSettings";
 import TeacherChangePassword from "./Teacher/TeacherChangePassword";
 import MyStudents from "./Teacher/MyStudents";
@@ -47,10 +49,12 @@ function Main() {
         <Route path="/profile-settings" element={<ProfileSettings/>}></Route>
         <Route path="/change-password" element={<ChangePassword/>}></Route>
         <Route path="/teacher-login" element={<TeacherLogin />}></Route>
+        <Route path="/teacher-logout" element={<TeacherLogout/>}></Route>
         <Route path="/teacher-register" element={<TeacherRegister />}></Route>
         <Route path="/teacher-dashboard" element={<TeacherDashboard />}></Route>
         <Route path="/teacher-courses" element={<TeacherCourses />}></Route>
         <Route path="/add-courses" element={<AddCourses />}></Route>
+        <Route path="/add-chapter/:course_id" element={<AddChapter/>}></Route>
         <Route path="/teacher-profile-settings" element={<TeacherProfileSettings />}></Route>
         <Route path="/teacher-change-password" element={<TeacherChangePassword />}></Route>
         <Route path="/my-students" element={<MyStudents/>}></Route>
