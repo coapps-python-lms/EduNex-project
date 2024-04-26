@@ -1,26 +1,11 @@
 import { Link } from "react-router-dom";
-import { useEffect,useState } from "react";
-import axios from 'axios';
+import { useEffect } from "react";
 import TeacherSidebar from "./TeacherSidebar";
 
-function AddCourses() {
- 
-  const [cats,setCats] = useState([]);
-  useEffect=()=>{
-    try {
-      axios.post(baseUrl+'/teacher-login',teacherFormData)
-      .then((res)=>{
-        if(res.data.bool ===true){
-          localStorage.setItem('teacherLoginStatus',true);
-          window.location.href='/teacher-dashboard'
-
-        }
-      })
-      
-    } catch (error) {
-      
-    }
-  }
+function AddChapter() {
+  useEffect(()=>{
+    document.title = 'Add courses';
+  })
   return (
     <div className="container mt-4">
       <div className="row">
@@ -29,18 +14,8 @@ function AddCourses() {
         </aside>
         <section className="col-md-9">
           <div className="card">
-            <h5 className="card-header">Add Course</h5>
+            <h5 className="card-header">Add Chapter</h5>
             <div className="card-body">
-            <div className="mb-3 row">
-                <label for="title" className="col-sm-2 col-form-label">
-                  Category
-                </label>
-                <div className="col-sm-10">
-                  <select name="category" className="form-control" >
-                    <option></option>
-                  </select>
-                </div>
-              </div>
               <div className="mb-3 row">
                 <label for="title" className="col-sm-2 col-form-label">
                   Title
@@ -63,7 +38,7 @@ function AddCourses() {
               </div>
               <div className="mb-3 row">
                 <label for="video" className="col-sm-2 col-form-lable">
-                  Featured Image
+                  Video
                 </label>
                 <div className="col-sm-10">
                   <input
@@ -75,10 +50,10 @@ function AddCourses() {
               </div>
               <div className="mb-3 row">
                 <label for="techs" className="col-sm-2 col-form-label">
-                  Technologies
+                  Remarks
                 </label>
                 <div className="col-sm-10">
-                  <textarea className="form-control" id="techs" placeholder="php, java, etc.."></textarea>
+                  <textarea className="form-control" id="techs" placeholder="This video is focused on basics of introduction"></textarea>
                 </div>
               </div>
 
@@ -93,4 +68,4 @@ function AddCourses() {
     </div>
   );
 }
-export default AddCourses;
+export default AddChapter;

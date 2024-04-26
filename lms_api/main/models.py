@@ -17,6 +17,8 @@ class CourseCategory(models.Model):
     description = models.TextField()
     class Meta:
         verbose_name_plural= "2. Course Categories"
+    def __str__(self):
+        return self.title
 
 # course model
 class Course(models.Model):
