@@ -7,6 +7,13 @@ const baseUrl = "http://127.0.0.1:8000/api";
 
 function AddCourses() {
   const [cats, setCats] = useState([]);
+  const [courseData, setCourseData] = useState({
+    category:'',
+    title:'',
+    description:'',
+    f_img:'',
+    techs:''
+});
   useEffect(() => {
     try {
       axios.get(baseUrl + "/category").then((res) => {
