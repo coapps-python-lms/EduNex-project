@@ -1,26 +1,22 @@
 import { Link } from "react-router-dom";
-import { useEffect,useState } from "react";
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 import TeacherSidebar from "./TeacherSidebar";
 
-function AddCourses() {
- 
-  const [cats,setCats] = useState([]);
-  useEffect=()=>{
-    try {
-      axios.post(baseUrl+'/teacher-login',teacherFormData)
-      .then((res)=>{
-        if(res.data.bool ===true){
-          localStorage.setItem('teacherLoginStatus',true);
-          window.location.href='/teacher-dashboard'
+const baseUrl = "http://127.0.0.1:8000/api";
 
-        }
-      })
-      
+function AddCourses() {
+  const [cats, setCats] = useState([]);
+  useEffect(() => {
+    try {
+      axios.get(baseUrl + "/category").then((res) => {
+        setCats(res.data);
+      });
     } catch (error) {
-      
+      console.log(error);
     }
-  }
+  }, []);
+  // console.log(cats);
   return (
     <div className="container mt-4">
       <div className="row">
@@ -31,13 +27,15 @@ function AddCourses() {
           <div className="card">
             <h5 className="card-header">Add Course</h5>
             <div className="card-body">
-            <div className="mb-3 row">
+              <div className="mb-3 row">
                 <label for="title" className="col-sm-2 col-form-label">
                   Category
                 </label>
                 <div className="col-sm-10">
-                  <select name="category" className="form-control" >
-                    <option></option>
+                  <select name="category" className="form-control">
+                    {cats.map((category, index) => {
+                      return <option key={index}>{category.title}</option>;
+                    })}
                   </select>
                 </div>
               </div>
@@ -46,11 +44,7 @@ function AddCourses() {
                   Title
                 </label>
                 <div className="col-sm-10">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="title"
-                  />
+                  <input type="text" className="form-control" id="title" />
                 </div>
               </div>
               <div className="mb-3 row">
@@ -58,7 +52,10 @@ function AddCourses() {
                   Description
                 </label>
                 <div className="col-sm-10">
-                  <textarea className="form-control" id="description"></textarea>
+                  <textarea
+                    className="form-control"
+                    id="description"
+                  ></textarea>
                 </div>
               </div>
               <div className="mb-3 row">
@@ -66,11 +63,7 @@ function AddCourses() {
                   Featured Image
                 </label>
                 <div className="col-sm-10">
-                  <input
-                    type="file"
-                    className="form-control"
-                    id="video"
-                  />
+                  <input type="file" className="form-control" id="video" />
                 </div>
               </div>
               <div className="mb-3 row">
@@ -78,7 +71,11 @@ function AddCourses() {
                   Technologies
                 </label>
                 <div className="col-sm-10">
-                  <textarea className="form-control" id="techs" placeholder="php, java, etc.."></textarea>
+                  <textarea
+                    className="form-control"
+                    id="techs"
+                    placeholder="php, java, etc.."
+                  ></textarea>
                 </div>
               </div>
 
