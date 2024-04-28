@@ -10,5 +10,8 @@ urlpatterns=[
     path('teacher-login',views.teacher_login),
     #category
     path('category/',views.CategoryList.as_view()),
+     #course
+    path('course/',views.CourseList.as_view()),
+    path('add-course',views.create_course)
 
 ]

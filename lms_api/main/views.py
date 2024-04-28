@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
 # from rest_framework import permissions
-from .serializers import TeacherSerializer,CategorySerializer
+from .serializers import TeacherSerializer,CategorySerializer,CourseSerializer
 from . import models
 
 class TeacherList(generics.ListCreateAPIView):
@@ -39,4 +39,18 @@ class CategoryList(generics.ListCreateAPIView):
     serializer_class = CategorySerializer
     # permission_classes=[permissions.IsAuthenticated]
 
+# course
+class CourseList(generics.ListCreateAPIView):
+    queryset = models.Course.objects.all()
+    serializer_class = CourseSerializer
+    # permission_classes=[permissions.IsAuthenticated]
+
+def create_course(request):
+    if request.method == 'POST':
+        serializer = CourseSerializer(data=request.POST, files=request.FILES)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse({'bool': True})
+        else:
+            return JsonResponse({'error': serializer.errors})
 
