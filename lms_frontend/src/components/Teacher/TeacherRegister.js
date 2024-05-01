@@ -8,7 +8,6 @@ function TeacherRegister() {
   useEffect(() => {
     document.title = "Teacher Register";
   });
- 
 
   const [teacherData, setTeacherData] = useState({
     full_name: "",
@@ -53,9 +52,9 @@ function TeacherRegister() {
       setTeacherData({ ...teacherData, status: "error" });
     }
   };
-  const teacherLoginStatus= localStorage.getItem('teacherLoginStatus')
-  if(teacherLoginStatus===true){
-   window.location.href='/teacher-dashboard';
+  const teacherLoginStatus = localStorage.getItem("teacherLoginStatus");
+  if (teacherLoginStatus === true) {
+    window.location.href = "/teacher-dashboard";
   }
 
   return (
@@ -110,7 +109,10 @@ function TeacherRegister() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="exampleInputQualification" className="form-label">
+                  <label
+                    htmlFor="exampleInputQualification"
+                    className="form-label"
+                  >
                     Qualification
                   </label>
                   <input
@@ -153,7 +155,8 @@ function TeacherRegister() {
                 </div>
                 <div>
                   <h6>
-                    Already have an account? <Link to="/teacher-login">Login</Link>
+                    Already have an account?{" "}
+                    <Link to="/teacher-login">Login</Link>
                   </h6>
                 </div>
 

@@ -7,6 +7,7 @@ const baseUrl = "http://127.0.0.1:8000/api";
 
 function AddCourses() {
   const [cats, setCats] = useState([]);
+  const teacherId = localStorage.getItem("teacherId");
   const [courseData, setCourseData] = useState({
     category: "",
     title: "",
@@ -27,7 +28,7 @@ function AddCourses() {
   }, []);
 
   const handleChange = (event) => {
-    const { name, value, files } = event.target;  // Destructure event target
+    const { name, value, files } = event.target; // Destructure event target
 
     // Handle file upload separately
     if (files) {
@@ -66,7 +67,7 @@ function AddCourses() {
     }
 
     _formData.append("category", courseData.category);
-    _formData.append("teacher", 1); // Assuming teacher ID is always 1
+    _formData.append("teacher", teacherId); // Assuming teacher ID is always 1
     _formData.append("title", courseData.title);
     _formData.append("description", courseData.description);
     _formData.append("featured_img", courseData.f_img, courseData.f_img?.name); // Handle null image
@@ -80,6 +81,7 @@ function AddCourses() {
       });
 
       console.log("Course created successfully:", response.data);
+      window.location.href = "/add-courses";
       // Handle success: redirect, show success message
     } catch (error) {
       console.error("Error creating course:", error.response?.data);
@@ -97,8 +99,17 @@ function AddCourses() {
           <div className="card">
             <h5 className="card-header">Add Course</h5>
             <div className="card-body">
-            {errors && (
-                <div className="alert alert-danger" role="alert" style={{ backgroundColor: 'transparent', color: 'red', outline: 'none' , border:'none' }}>
+              {errors && (
+                <div
+                  className="alert alert-danger"
+                  role="alert"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "red",
+                    outline: "none",
+                    border: "none",
+                  }}
+                >
                   {Object.values(errors).map((error) => (
                     <p key={error}>{error}</p>
                   ))}
@@ -109,9 +120,18 @@ function AddCourses() {
                   Category
                 </label>
                 <div className="col-sm-10">
-                  <select name="category" onChange={handleChange} className="form-control" value={courseData.category}>
+                  <select
+                    name="category"
+                    onChange={handleChange}
+                    className="form-control"
+                    value={courseData.category}
+                  >
                     {cats.map((category, index) => {
-                      return <option key={index} value={category.id}>{category.title}</option>;
+                      return (
+                        <option key={index} value={category.id}>
+                          {category.title}
+                        </option>
+                      );
                     })}
                   </select>
                 </div>
@@ -121,7 +141,13 @@ function AddCourses() {
                   Title
                 </label>
                 <div className="col-sm-10">
-                  <input type="text" onChange={handleChange} name="title" className="form-control" id="title" />
+                  <input
+                    type="text"
+                    onChange={handleChange}
+                    name="title"
+                    className="form-control"
+                    id="title"
+                  />
                 </div>
               </div>
               <div className="mb-3 row">
@@ -142,7 +168,13 @@ function AddCourses() {
                   Featured Image
                 </label>
                 <div className="col-sm-10">
-                <input type="file" className="form-control" name="f_img" onChange={handleChange} id="video" />
+                  <input
+                    type="file"
+                    className="form-control"
+                    name="f_img"
+                    onChange={handleChange}
+                    id="video"
+                  />
                 </div>
               </div>
               <div className="mb-3 row">
@@ -162,7 +194,9 @@ function AddCourses() {
 
               <div>
                 <hr />
-                <button className="btn btn-primary" onClick={submitForm} >Submit</button>
+                <button className="btn btn-primary" onClick={submitForm}>
+                  Submit
+                </button>
               </div>
             </div>
           </div>

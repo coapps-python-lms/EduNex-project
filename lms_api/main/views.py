@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
 # from rest_framework import permissions
-from .serializers import TeacherSerializer,CategorySerializer,CourseSerializer
+from .serializers import TeacherSerializer,CategorySerializer,CourseSerializer,ChapterSerializer
 from . import models
 
 class TeacherList(generics.ListCreateAPIView):
@@ -26,7 +26,7 @@ def teacher_login(request):
         
         try:
             teacherData = models.Teacher.objects.get(email=email, password=password)
-            return JsonResponse({'bool': True})
+            return JsonResponse({'bool': True,'teacher_id':teacherData.id})
         except ObjectDoesNotExist:
             return JsonResponse({'bool': False, 'error': 'Teacher not found with the provided credentials'})
         except models.Teacher.MultipleObjectsReturned:
@@ -54,3 +54,16 @@ def create_course(request):
         else:
             return JsonResponse({'error': serializer.errors})
 
+class TeacherCourseList(generics.ListAPIView):
+    serializer_class = CourseSerializer
+    # permission_classes=[permissions.IsAuthenticated]
+    def get_queryset(self):
+        teacher_id = self.kwargs['teacher_id']
+        teacher=models.Teacher.objects.get(pk=teacher_id)
+        return models.Course.objects.filter(teacher=teacher)
+
+# chapter
+class ChapterList(generics.ListCreateAPIView):
+    queryset = models.Chapter.objects.all()
+    serializer_class = ChapterSerializer
+    # permission_classes=[permissions.IsAuthenticated]

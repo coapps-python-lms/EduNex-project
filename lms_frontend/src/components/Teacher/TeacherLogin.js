@@ -23,6 +23,8 @@ function TeacherLogin() {
       axios.post(baseUrl + "/teacher-login", teacherFormData).then((res) => {
         if (res.data.bool == true) {
           localStorage.setItem("teacherLoginStatus", true);
+          localStorage.setItem("teacherId", res.data.teacher_id);
+          console.log(res.data.teacher_id);
           window.location.href = "/teacher-dashboard";
         }
       });

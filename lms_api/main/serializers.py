@@ -15,3 +15,7 @@ class CourseSerializer(serializers.ModelSerializer):
         model = models.Course
         fields = '__all__'
         # fields=['id','category','teacher','title','description','featured_img','techs']
+class ChapterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Chapter
+        fields = '__all__'
