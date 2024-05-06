@@ -3,21 +3,34 @@ import { useState, useEffect } from "react";
 import TeacherSidebar from "./TeacherSidebar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 const baseUrl = "http://127.0.0.1:8000/api";
 function AllChapters() {
   const [chapterData, setChapterData] = useState([]);
+  const [totalResult, setTotalResult] = useState(0);
   const { course_id } = useParams();
   console.log(course_id);
   // fetch course data
   useEffect(() => {
     try {
       axios.get(`${baseUrl}/course-chapters/${course_id}`).then((res) => {
+        setTotalResult(res.data.length);
         setChapterData(res.data);
       });
     } catch (error) {
       console.log(error);
     }
   }, [course_id]);
+  const handleDeleteClick = () => {
+    Swal.fire({
+      title: "Confirm",
+      text: "Do you want to delete this chapter",
+      icon: "info",
+      confirmButtonText: "Continue",
+      showCancelButton: true,
+    });
+  };
 
   return (
     <div className="container mt-4">
@@ -27,7 +40,7 @@ function AllChapters() {
         </aside>
         <section className="col-md-9">
           <div className="card">
-            <h5 className="card-header"> All Chapters</h5>
+            <h5 className="card-header"> All Chapters ({totalResult})</h5>
             <div className="card-body">
               <table className="table table-bordered">
                 <thead>
@@ -42,29 +55,32 @@ function AllChapters() {
                   {chapterData.map((chapter, index) => (
                     <tr>
                       <td>
-                        <Link to="#">{chapter.title}</Link>
+                        <Link to={"/edit-chapter/" + chapter.id}>
+                          {chapter.title}
+                        </Link>
                       </td>
                       <td>
                         <video controls width="250">
-                          <source
-                            src={chapter.video.url}
-                            type="video/webm"
-                          />
-                          <source
-                            src={chapter.video.url}
-                            type="video/mp4"
-                          />
-                          Download the
-                          <a href="/media/cc0-videos/flower.webm">WEBM</a>
-                          or
-                          <a href="/media/cc0-videos/flower.mp4">MP4</a>
-                          video.
+                          <source src={chapter.video.url} type="video/webm" />
+                          <source src={chapter.video.url} type="video/mp4" />
+                          Sorry your browser doesn't support embedded videos.
                         </video>
                       </td>
                       <td>{chapter.remarks}</td>
                       <td>
-                        <button className="btn btn-danger">Delete</button>
-                        <button className="btn btn-info ms-4">Edit</button>
+                        <Link
+                          to={"/edit-chapter/" + chapter.id}
+                          className="btn btn-info"
+                        >
+                          <i className="bi bi-pencil-square"></i> Edit
+                        </Link>
+
+                        <button
+                          className="btn btn-danger ms-4"
+                          onClick={handleDeleteClick}
+                        >
+                          <i className="bi bi-trash"></i>Delete
+                        </button>
                       </td>
                     </tr>
                   ))}
