@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import TeacherSidebar from "./TeacherSidebar";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 const baseUrl = "http://127.0.0.1:8000/api";
 function TeacherCourses() {
@@ -8,6 +9,7 @@ function TeacherCourses() {
   const teacherId = localStorage.getItem("teacherId");
   console.log(teacherId);
   // fetch course data
+  const { course_id } = useParams();
   useEffect(() => {
     try {
       axios.get(baseUrl + "/teacher-courses/" + teacherId).then((res) => {
@@ -40,7 +42,7 @@ function TeacherCourses() {
                 <tbody>
                   {courseData.map((course, index) => (
                     <tr>
-                      <td>{course.title}</td>
+                      <td><Link to={`/all-chapters/${course.id}`}>{course.title}</Link></td>
                       <td>
                         <img
                           src={course.featured_img}

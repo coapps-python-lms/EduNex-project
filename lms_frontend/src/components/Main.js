@@ -22,6 +22,7 @@ import TeacherDashboard from "./Teacher/TeacherDashboard";
 import TeacherCourses from "./Teacher/TeacherCourses";
 import AddCourses from "./Teacher/AddCourses";
 import AddChapter from "./Teacher/AddChapter";
+import AllChapters from "./Teacher/CourseChapter";
 import TeacherProfileSettings from "./Teacher/TeacherProfileSettings";
 import TeacherChangePassword from "./Teacher/TeacherChangePassword";
 import MyStudents from "./Teacher/MyStudents";
@@ -59,8 +60,11 @@ function Main() {
         <Route path="/teacher-change-password" element={<TeacherChangePassword />}></Route>
         <Route path="/my-students" element={<MyStudents/>}></Route>
         <Route path="/all-courses" element={<AllCourses/>}></Route>
+        <Route path="/all-chapters/:course_id" element={<AllChapters />} />
+        {/* <Route path="/all-chapters" element={<AllChapters/>}></Route> */}
         <Route path="/popular-courses" element={<PopularCourses/>}></Route>
         <Route path="/popular-teachers" element={<PopularTeachers/>}></Route>
+        <Route path="/category/:category_slug" element={<CategoryCourses/>}></Route>
         <Route path="/category/:category_slug" element={<CategoryCourses/>}></Route>
         
       </Switch>

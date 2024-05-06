@@ -14,6 +14,7 @@ function TeacherLogin() {
       [event.target.name]: event.target.value,
     });
   };
+  const [errorMsg, setErrorMsg] = useState("");
 
   const submitForm = () => {
     const teacherFormData = new FormData();
@@ -26,6 +27,8 @@ function TeacherLogin() {
           localStorage.setItem("teacherId", res.data.teacher_id);
           console.log(res.data.teacher_id);
           window.location.href = "/teacher-dashboard";
+        } else {
+          setErrorMsg("Invalid Email or Password!!");
         }
       });
     } catch (error) {
@@ -48,6 +51,7 @@ function TeacherLogin() {
           <div className="card">
             <h5 className="card-header">Teacher Login</h5>
             <div className="card-body">
+              {errorMsg && <p className="text-danger">{errorMsg}</p>}
               <form>
                 <div className="mb-3">
                   <label htmlFor="exampleInputEmail1" className="form-label">
