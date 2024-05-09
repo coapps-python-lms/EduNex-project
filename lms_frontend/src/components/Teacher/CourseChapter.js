@@ -22,13 +22,36 @@ function AllChapters() {
       console.log(error);
     }
   }, [course_id]);
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (chapter_id) => {
     Swal.fire({
       title: "Confirm",
       text: "Do you want to delete this chapter",
       icon: "info",
       confirmButtonText: "Continue",
       showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          axios.delete(baseUrl + "/chapter/" + chapter_id).then((res) => {
+            Swal.fire("success", "Chapter deleted successfully!!");
+            try {
+              axios
+                .get(`${baseUrl}/course-chapters/${course_id}`)
+                .then((res) => {
+                  setTotalResult(res.data.length);
+                  setChapterData(res.data);
+                });
+            } catch (error) {
+              console.log(error);
+            }
+          });
+          //
+        } catch (error) {
+          Swal.fire("error", "Chapter not deleted");
+        }
+      } else {
+        Swal.fire("error", "Chapter not deleted!!");
+      }
     });
   };
 
@@ -77,7 +100,7 @@ function AllChapters() {
 
                         <button
                           className="btn btn-danger ms-4"
-                          onClick={handleDeleteClick}
+                          onClick={() => handleDeleteClick(chapter.id)}
                         >
                           <i className="bi bi-trash"></i>Delete
                         </button>
