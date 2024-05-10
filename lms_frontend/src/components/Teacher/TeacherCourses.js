@@ -55,15 +55,21 @@ function TeacherCourses() {
                         <Link to="/">232</Link>
                       </td>
                       <td>
-                        <button className="btn btn-danger btn-sm">
-                          Delete
-                        </button>
+                      <Link
+                          to={"/edit-course/" + course.id}
+                          className="btn btn-info btn-sm ms-2"
+                        >
+                         Edit
+                        </Link>
                         <Link
                           to={"/add-chapter/" + course.id}
-                          className="btn btn-success btn-sm ms-4"
+                          className="btn btn-success btn-sm ms-2"
                         >
                           Add Chapter
                         </Link>
+                        <button className="btn btn-danger btn-sm ms-2">
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}

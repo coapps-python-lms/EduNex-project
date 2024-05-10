@@ -32,6 +32,7 @@ import AllCourses from "./AllCourses";
 import PopularCourses from "./PopularCourses";
 import PopularTeachers from "./PopularTeachers";
 import CategoryCourses from "./CategoryCourses";
+import EditCourse from "./Teacher/EditCourse";
 
 function Main() {
   return (
@@ -56,6 +57,7 @@ function Main() {
         <Route path="/teacher-dashboard" element={<TeacherDashboard />}></Route>
         <Route path="/teacher-courses" element={<TeacherCourses />}></Route>
         <Route path="/add-courses" element={<AddCourses />}></Route>
+        <Route path="/edit-course/:course_id" element={<EditCourse/>}></Route>
         <Route path="/add-chapter/:course_id" element={<AddChapter/>}></Route>
         <Route path="/teacher-profile-settings" element={<TeacherProfileSettings />}></Route>
         <Route path="/teacher-change-password" element={<TeacherChangePassword />}></Route>
@@ -67,7 +69,6 @@ function Main() {
         <Route path="/popular-teachers" element={<PopularTeachers/>}></Route>
         <Route path="/category/:category_slug" element={<CategoryCourses/>}></Route>
         <Route path="/category/:category_slug" element={<CategoryCourses/>}></Route>
-        
       </Switch>
       <Footer />
     </div>
