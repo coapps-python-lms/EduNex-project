@@ -1,5 +1,23 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+const baseUrl = "http://127.0.0.1:8000/api";
 function AllCourses() {
+  const [courseData, setCourseData] = useState([]);
+  // fetch course data
+  useEffect(() => {
+    try {
+      axios.get(baseUrl + "/course/").then((res) => {
+        setCourseData(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+  // console.log(courseData)
+  useEffect(() => {
+    document.title = "Latest course";
+  });
   return (
   <div className="container mt-3">
   {/**Latest courses */}
@@ -7,102 +25,22 @@ function AllCourses() {
         Latest courses
       </h3>
       <div className="row mb-4">
-        <div className="col-md-3 mb-4">
-          <div className="card">
-            <Link to="/detail/1">
-              <img src="logo-demo.jpg" className="card-img-top" alt="..." />
-            </Link>
-            <div className="card-body">
-              <h5 className="card-title">
-                <Link to="/detail/1">Course title</Link>
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card">
-            <Link to="/detail/1">
-              <img src="logo-demo.jpg" className="card-img-top" alt="..." />
-            </Link>
-            <div className="card-body">
-              <h5 className="card-title">
-                <Link to="/detail/1">Course title</Link>
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card">
-            <Link to="/detail/1">
-              <img src="logo-demo.jpg" className="card-img-top" alt="..." />
-            </Link>
-            <div className="card-body">
-              <h5 className="card-title">
-                <Link to="/detail/1">Course title</Link>
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card">
-            <Link to="/detail/1">
-              <img src="logo-demo.jpg" className="card-img-top" alt="..." />
-            </Link>
-            <div className="card-body">
-              <h5 className="card-title">
-                <Link to="/detail/1">Course title</Link>
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card">
-            <Link to="/detail/1">
-              <img src="logo-demo.jpg" className="card-img-top" alt="..." />
-            </Link>
-            <div className="card-body">
-              <h5 className="card-title">
-                <Link to="/detail/1">Course title</Link>
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card">
-            <Link to="/detail/2">
-              <img src="logo-demo.jpg" className="card-img-top" alt="..." />
-            </Link>
-            <div className="card-body">
-              <h5 className="card-title">
-                <Link to="/detail/2">Course title</Link>
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card">
-            <Link to="/detail/3">
-              <img src="logo-demo.jpg" className="card-img-top" alt="..." />
-            </Link>
-            <div className="card-body">
-              <h5 className="card-title">
-                <Link to="/detail/3">Course title</Link>
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card">
-            <Link to="/detail/4">
-              <img src="logo-demo.jpg" className="card-img-top" alt="..." />
-            </Link>
-            <div className="card-body">
-              <h5 className="card-title">
-                <Link to="/detail/4">Course title</Link>
-              </h5>
-            </div>
-          </div>
-        </div>
+        {courseData&&courseData.map((course,index)=>
+         <div className="col-md-3 mb-4">
+         <div className="card">
+           <Link to={`/detail/${course.id}`}>
+             <img src={course.featured_img} className="card-img-top" alt={course.title} />
+           </Link>
+           <div className="card-body">
+             <h5 className="card-title">
+               <Link to={`/detail/${course.id}`}>{course.title}</Link>
+             </h5>
+           </div>
+         </div>
+       </div>)}
+       
+        
+       
       </div>
       {/**End Latest courses */}
       {/* pagination start */}

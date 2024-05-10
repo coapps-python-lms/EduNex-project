@@ -19,6 +19,9 @@ function TeacherCourses() {
       console.log(error);
     }
   }, []);
+  useEffect(() => {
+    document.title = "Teacher Course";
+  });
 
   return (
     <div className="container mt-4">
