@@ -51,6 +51,10 @@ class CourseList(generics.ListCreateAPIView):
                 limit=int(self.request.GET['result'])
                 qs=models.Course.objects.all().order_by('-id')[:limit]
             return qs
+            if 'category' in self.request.GET:
+                category=self.request.GET['category']
+                qs=models.Course.objects.filter(techs__icontains=category)
+            return qs
 
 def create_course(request):
     if request.method == 'POST':
@@ -95,3 +99,11 @@ class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
 class CourseDetailView(generics.RetrieveAPIView):
     queryset = models.Course.objects.all()
     serializer_class = CourseSerializer
+
+# own
+class CategoryCoursesList(generics.ListAPIView):
+    def get(self, request):
+        category = request.GET.get('category')
+        courses = Course.objects.filter(category__title=category)
+        serializer = CourseSerializer(courses, many=True)
+        return Response(serializer.data)

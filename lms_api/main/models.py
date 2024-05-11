@@ -34,8 +34,18 @@ class Course(models.Model):
         verbose_name_plural= "3. Courses"
 
     def related_videos(self):
-        related_videos = Course.objects.filter(techs__icontains=self.techs)
-        return serializers.serialize('json',related_videos)
+        if self.techs is not None:
+            related_videos = Course.objects.filter(techs__icontains=self.techs)
+            return serializers.serialize('json', related_videos)
+        else:
+            return "[]"
+
+    def tech_list(self):
+        if self.techs is not None:
+            tech_list = self.techs.split(',')
+            return tech_list
+        else:
+            return []
 
 
 # chapter model
