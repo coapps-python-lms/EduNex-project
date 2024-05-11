@@ -91,3 +91,7 @@ class CourseChapterList(generics.ListAPIView):
 class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Chapter.objects.all()
     serializer_class = ChapterSerializer
+# particular course
+class CourseDetailView(generics.RetrieveAPIView):
+    queryset = models.Course.objects.all()
+    serializer_class = CourseSerializer

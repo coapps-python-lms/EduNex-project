@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 const baseUrl = "http://127.0.0.1:8000/api";
 // import AllCourses from "./AllCourses";
-
 function Home() {
   useEffect(()=>{
     document.title = 'EduNex Home Page';
